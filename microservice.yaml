@@ -31,7 +31,7 @@ microservice:
 
   - name: local
     appConfig:
-      endpointsVersion: ""
+      endpointsVersion: "2017-02-13r0"
     k8sContext: minikube
     k8sNamespace: default
     network:

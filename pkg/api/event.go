@@ -8,12 +8,10 @@ import (
 
 type EventStoreServer struct{}
 
-func (s *EventStoreServer) ListEventsForAggregateType(ctx grpc_context.Context, req *pb.ListEventsForAggregateTypeRequest) (*pb.ListEventsForAggregateTypeResponse, error) {
+func (s *EventStoreServer) ListEvents(ctx grpc_context.Context, req *pb.ListEventsRequest) (*pb.ListEventsResponse, error) {
 	//TODO: CHANGE THIS TO DO STUFF
 	logging.Debugf(ctx, "You should change this")
-	res := &pb.ListEventsForAggregateTypeResponse{
-		Events: []pb.Event{pb.AggregateType(pb.AggregateType_CAMPAIGN)},
-	}
+	res := &pb.ListEventsResponse{}
 	return res, nil
 }
 

@@ -17,7 +17,7 @@ func main() {
     defer conn.Close()
     c := pb.NewEventStoreClient(conn)
 
-    r, err := c.ListEventsForAggregateType(context.Background(), &pb.ListEventsForAggregateTypeRequest{AggregateType:pb.AggregateType(pb.AggregateType_CAMPAIGN)})
+    r, err := c.ListEvents(context.Background(), &pb.ListEventsRequest{AggregateType:pb.AggregateType(pb.AggregateType_CAMPAIGN)})
     if err != nil {
         log.Fatalf("could not get stats: %v", err)
     }

@@ -1,0 +1,8 @@
+type: google.api.Service
+config_version: 3
+
+http:
+  rules:
+  - selector: eventstore.v1.EventStore.ListEvents
+    post: /v1/event/list
+    body: '*'
