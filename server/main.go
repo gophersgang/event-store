@@ -10,9 +10,11 @@ import (
 	"github.com/vendasta/gosdks/config"
 	"github.com/vendasta/gosdks/config/elastic"
 	"github.com/vendasta/gosdks/logging"
-	"github.com/vendasta/gosdks/pb/event-store/v1"
 	"github.com/vendasta/gosdks/statsd"
 	"github.com/vendasta/gosdks/util"
+	"github.com/vendasta/gosdks/vstore"
+	"github.com/vendasta/event-store/pkg/event"
+	"github.com/vendasta/event-store/pkg/event/repository"
 )
 
 const (
@@ -58,8 +60,27 @@ func main() {
 	grpcServer := util.CreateGrpcServer(loggingInterceptor, identityInterceptor)
 
 	//--------- INSERT YOUR CODE HERE ------------
-	eventstore_v1.RegisterEventStoreServer(grpcServer, &api.EventStoreServer{})
+	logging.Infof(ctx, "Creating vStore Client...")
+	vstoreClient, err := vstore.New()
+	if err != nil {
+		logging.Errorf(ctx, "Error initializing vstore client %s", err.Error())
+		os.Exit(-1)
+	}
+	logging.Infof(ctx, "Running vStore Server: %#v", vstoreClient)
+
+	//Register Event kind with VStore
+	err = event.Initialize(ctx, vstoreClient)
+	if err != nil {
+		logging.Errorf(ctx, "Error initializing event kind: %s", err.Error())
+		os.Exit(-1)
+	}
+
+	vStoreRepo := eventrepository.NewVStoreRepository(vstoreClient)
+	eventRepo := eventrepository.NewEventRepository(vStoreRepo)
+
 	//REGISTER_GRPC_SERVERS_HERE
+	logging.Infof(ctx, "Starting New Event Server...")
+	api.NewEventServer(grpcServer, eventRepo)
 
 	//Start GRPC API Server
 	go func() {

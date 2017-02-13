@@ -1,11 +1,12 @@
-hash: c215215cac89f8c07e6f7ab556dc754720045a4e60f2b73afd961933f2bb9c44
-updated: 2017-02-10T21:46:02.990405431-06:00
+hash: a38220540c4d275c792eb351e426b547e2d410db60fc2eeb6bc9d6a8ba884966
+updated: 2017-02-13T11:26:56.730190365-06:00
 imports:
 - name: cloud.google.com/go
-  version: 513b07bb7468fa6d8c59519f35b66456bce959b5
+  version: 5c2083b36af4e7d8ecb33ba5a5759bcfddfae591
   subpackages:
   - compute/metadata
   - internal
+  - internal/version
   - logging
   - logging/apiv2
   - logging/internal
@@ -14,6 +15,10 @@ imports:
   version: 6fa3e39b86f8cbb638a971f2a90b9ebd98074c6b
   subpackages:
   - statsd
+- name: github.com/davecgh/go-spew
+  version: 6d212800a42e8ab5c146b8ace3490ee17e5225f9
+  subpackages:
+  - spew
 - name: github.com/golang/protobuf
   version: 8ee79997227bf9b34611aee7946ae64735e6fd93
   subpackages:
@@ -34,14 +39,30 @@ imports:
   subpackages:
   - bigflake
   - util
+- name: github.com/pborman/uuid
+  version: 1b00554d822231195d1babd97ff4a781231955c9
+- name: github.com/pmezard/go-difflib
+  version: d8ed2627bdf02c080bf22230dbb337003b7aba2d
+  subpackages:
+  - difflib
+- name: github.com/stretchr/objx
+  version: cbeaeb16a013161a98496fad62933b1d21786672
+- name: github.com/stretchr/testify
+  version: 69483b4bd14f5845b5a1e55bca19e954e827f1d0
+  subpackages:
+  - assert
+  - mock
 - name: github.com/vendasta/gosdks
-  version: a9b8a64c80b14977d18daa488811b179b333297e
+  version: d36b2d10049a37c1281cb0a251554cf32b083d98
   subpackages:
   - config
   - config/elastic
   - logging
+  - pb/event-store/v1
+  - pb/vstorepb
   - statsd
   - util
+  - vstore
 - name: golang.org/x/net
   version: 61557ac0112b576429a0df080e1c2cef5dfbb642
   subpackages:

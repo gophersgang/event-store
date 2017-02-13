@@ -4,4 +4,4 @@
 
 package main
 
-const CLI_VERSION = "1.16.2"
+const CLI_VERSION = "1.17.0"

@@ -40,6 +40,15 @@ message GetPartnerResponse {
     Partner partner = 1;
 }
 
+message CreatePartnerRequest {
+    Partner partner = 1;
+}
+
+message CreatePartnerResponse {
+    Partner partner = 1;
+}
+
 service Partners {
-    rpc GetPartner(GetPartnerRequest) returns (GetPartnerResponse);
+    rpc Get(GetPartnerRequest) returns (GetPartnerResponse);
+    rpc Create(CreatePartnerRequest) returns (CreatePartnerResponse);
 }

@@ -1,4 +1,7 @@
  `Don't forget to set the version in doc.go so mscli reports version correctly`
+1.17.0 [2017-02-10]
+- give newly bootstrapped apps a reference to a vstore client
+
 1.16.2 [2017-02-09]
 - use the grpc host for local proxy to route the traffic to
 

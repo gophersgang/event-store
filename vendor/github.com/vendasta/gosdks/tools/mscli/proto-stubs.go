@@ -50,7 +50,7 @@ func GenerateStubImplementations(config MicroserviceConfig, protoFiles []string)
 	}
 	augmentMainGoToRegisterServices(services, config.GoPackageName)
 
-	fmt.Print("\n\nYou should now add your domain implementation to the files generated in server/ except for main.go\n\n")
+	fmt.Print("\n\nYou should now add your domain implementation to the files generated in pkg/\n\n")
 
 	defer formatGeneratedCode()
 }

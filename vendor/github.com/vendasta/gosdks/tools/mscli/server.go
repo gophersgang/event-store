@@ -68,6 +68,14 @@ func main() {
     logging.Infof(ctx, "Creating GRPC server...")
     grpcServer := util.CreateGrpcServer(loggingInterceptor, identityInterceptor)
 
+    //Create a vStore client
+    logging.Infof(ctx, "Creating vStore Client...")
+	vstoreClient, err := vstore.New()
+	if err != nil {
+		logging.Errorf(ctx, "Error initializing vstore client %s", err.Error())
+		os.Exit(-1)
+	}
+	logging.Infof(ctx, "Using vStore Client: %#v", vstoreClient)
 
     //--------- INSERT YOUR CODE HERE ------------
 	` + gRPCServerRegisterTag + `
