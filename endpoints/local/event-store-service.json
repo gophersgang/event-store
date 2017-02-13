@@ -7,6 +7,10 @@
       "name": "ListEvents",
       "requestTypeUrl": "type.googleapis.com/eventstore.v1.ListEventsRequest",
       "responseTypeUrl": "type.googleapis.com/eventstore.v1.ListEventsResponse"
+    }, {
+      "name": "CreateEvent",
+      "requestTypeUrl": "type.googleapis.com/eventstore.v1.CreateEventRequest",
+      "responseTypeUrl": "type.googleapis.com/eventstore.v1.CreateEventResponse"
     }],
     "version": "v1",
     "sourceContext": {
@@ -87,6 +91,39 @@
     },
     "syntax": "SYNTAX_PROTO3"
   }, {
+    "name": "eventstore.v1.CreateEventRequest",
+    "fields": [{
+      "kind": "TYPE_ENUM",
+      "cardinality": "CARDINALITY_OPTIONAL",
+      "number": 1,
+      "name": "aggregate_type",
+      "typeUrl": "type.googleapis.com/eventstore.v1.AggregateType",
+      "jsonName": "aggregateType"
+    }, {
+      "kind": "TYPE_STRING",
+      "cardinality": "CARDINALITY_OPTIONAL",
+      "number": 2,
+      "name": "aggregate_id",
+      "jsonName": "aggregateId"
+    }, {
+      "kind": "TYPE_STRING",
+      "cardinality": "CARDINALITY_OPTIONAL",
+      "number": 3,
+      "name": "payload",
+      "jsonName": "payload"
+    }, {
+      "kind": "TYPE_MESSAGE",
+      "cardinality": "CARDINALITY_OPTIONAL",
+      "number": 4,
+      "name": "timestamp",
+      "typeUrl": "type.googleapis.com/google.protobuf.Timestamp",
+      "jsonName": "timestamp"
+    }],
+    "sourceContext": {
+      "fileName": "event.proto"
+    },
+    "syntax": "SYNTAX_PROTO3"
+  }, {
     "name": "eventstore.v1.ListEventsResponse",
     "fields": [{
       "kind": "TYPE_MESSAGE",
@@ -95,6 +132,20 @@
       "name": "events",
       "typeUrl": "type.googleapis.com/eventstore.v1.Event",
       "jsonName": "events"
+    }],
+    "sourceContext": {
+      "fileName": "event.proto"
+    },
+    "syntax": "SYNTAX_PROTO3"
+  }, {
+    "name": "eventstore.v1.CreateEventResponse",
+    "fields": [{
+      "kind": "TYPE_MESSAGE",
+      "cardinality": "CARDINALITY_OPTIONAL",
+      "number": 1,
+      "name": "event",
+      "typeUrl": "type.googleapis.com/eventstore.v1.Event",
+      "jsonName": "event"
     }],
     "sourceContext": {
       "fileName": "event.proto"
@@ -134,6 +185,12 @@
   "authentication": {
     "rules": [{
       "selector": "eventstore.v1.EventStore.ListEvents",
+      "requirements": [{
+        "providerId": "google_id_token",
+        "audiences": "https://event-store.vendasta-local.com"
+      }]
+    }, {
+      "selector": "eventstore.v1.EventStore.CreateEvent",
       "requirements": [{
         "providerId": "google_id_token",
         "audiences": "https://event-store.vendasta-local.com"

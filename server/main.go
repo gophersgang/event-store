@@ -6,13 +6,13 @@ import (
 
 	"golang.org/x/net/context"
 
+	"github.com/vendasta/event-store/pkg/api"
 	"github.com/vendasta/gosdks/config"
 	"github.com/vendasta/gosdks/config/elastic"
 	"github.com/vendasta/gosdks/logging"
+	"github.com/vendasta/gosdks/pb/event-store/v1"
 	"github.com/vendasta/gosdks/statsd"
 	"github.com/vendasta/gosdks/util"
-	"github.com/vendasta/event-store/pb"
-	"github.com/vendasta/event-store/pkg/api"
 )
 
 const (
@@ -58,7 +58,7 @@ func main() {
 	grpcServer := util.CreateGrpcServer(loggingInterceptor, identityInterceptor)
 
 	//--------- INSERT YOUR CODE HERE ------------
-	pb.RegisterEventStoreServer(grpcServer, &api.EventStoreServer{})
+	eventstore_v1.RegisterEventStoreServer(grpcServer, &api.EventStoreServer{})
 	//REGISTER_GRPC_SERVERS_HERE
 
 	//Start GRPC API Server

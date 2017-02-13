@@ -23,6 +23,13 @@ message ListEventsRequest {
     AggregateType aggregate_type = 1;
 }
 
+message CreateEventRequest {
+    AggregateType aggregate_type = 1;
+    string aggregate_id = 2;
+    string payload = 3;
+    google.protobuf.Timestamp timestamp = 4;
+}
+
 // *******************
 // Responses
 // *******************
@@ -30,7 +37,14 @@ message ListEventsResponse {
     repeated Event events = 1;
 }
 
+message CreateEventResponse {
+    Event event = 1;
+}
+
 service EventStore {
     rpc ListEvents (ListEventsRequest) returns (ListEventsResponse){
+    }
+
+    rpc CreateEvent (CreateEventRequest) returns (CreateEventResponse) {
     }
 }

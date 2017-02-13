@@ -6,3 +6,6 @@ http:
   - selector: eventstore.v1.EventStore.ListEvents
     post: /v1/event/list
     body: '*'
+  - selector: eventstore.v1.EventStore.CreateEvent
+    post: /v1/event/create
+    body: '*'
