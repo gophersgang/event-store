@@ -1,0 +1,30 @@
+syntax = "proto3";
+
+package vstorepb;
+
+import "admin.proto";
+import "secondary_index.proto";
+
+message Schema {
+    string namespace = 1;
+
+    string kind = 2;
+
+    string id = 3;
+
+    repeated string primary_key = 4;
+
+    repeated vstorepb.Property properties = 5;
+
+    repeated vstorepb.SecondaryIndex secondary_indexes = 6;
+
+    int64 version = 7;
+
+    vstorepb.BackupConfig backup_config = 8;
+}
+
+message NamespaceConfig {
+    string namespace = 1;
+    repeated string authorized_service_accounts = 2;
+    int64 version = 3;
+}

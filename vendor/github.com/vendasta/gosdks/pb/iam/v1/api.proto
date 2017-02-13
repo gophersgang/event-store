@@ -1,0 +1,175 @@
+syntax = "proto3";
+
+package iam.v1;
+
+import "google/protobuf/empty.proto";
+import "google/protobuf/timestamp.proto";
+
+enum OrderByDirection {
+    ASCENDING = 0;
+    DESCENDING = 1;
+}
+
+message Subject {
+    string subject_id = 1;
+    string email = 2;
+    repeated MultiValueAttribute attributes = 4;
+    google.protobuf.Timestamp created = 5;
+    google.protobuf.Timestamp updated = 6;
+    google.protobuf.Timestamp last_login = 7;
+}
+
+message SubjectResult {
+    Subject subject = 1;
+}
+
+message SingleValueAttribute {
+    string key = 1;
+    string value = 2;
+}
+
+message MultiValueAttribute {
+    string key = 1;
+    repeated string values = 2;
+}
+
+message Query {
+    string search_term = 1;
+    repeated string attribute_keys = 2;
+}
+
+message Mutation {
+    oneof operation {
+        SingleValueAttribute add = 1;
+        MultiValueAttribute replace = 2;
+        SingleValueAttribute remove = 3;
+        string drop_key = 4;
+    }
+}
+
+message NamespacedContext {
+    string namespace = 1;
+    string type = 2;
+}
+
+message TypedContext {
+    string type = 1;
+}
+
+message Context {
+    oneof context {
+        NamespacedContext namespaced = 1;
+        TypedContext typed = 2;
+    }
+}
+
+// *******************
+// Requests
+// *******************
+message RegisterSubjectRequest {
+    Context context = 1;
+    string email = 2;
+    string password = 3;
+    repeated MultiValueAttribute attributes = 4;
+}
+
+message GetSubjectsRequest {
+    Context context = 1;
+    repeated string subject_ids = 2;
+}
+
+message GetSubjectsByEmailRequest {
+    Context context = 1;
+    repeated string emails = 2;
+}
+
+message AuthenticateSubjectRequest {
+    Context context = 1;
+    string email = 2;
+    string password = 3;
+}
+
+message DeleteSubjectRequest {
+    Context context = 1;
+    string subject_id = 2;
+}
+
+message ResetSubjectPasswordRequest {
+    Context context = 1;
+    string subject_id = 2;
+    string new_password = 3;
+}
+
+message SearchSubjectRequest {
+    Context context = 1;
+    Query query = 2;
+    repeated SingleValueAttribute filters = 3;
+    string order_by = 4;
+    OrderByDirection order_by_direction = 5;
+    string cursor = 6;
+    int64 page_size = 7;
+}
+
+message GetSubjectContextRequest {
+    string subject_id = 1;
+}
+
+message MutateAttributesRequest {
+    Context context = 1;
+    string subject_id = 2;
+    repeated Mutation mutations = 3;
+}
+
+message ChangeSubjectEmailRequest {
+    Context context = 1;
+    string subject_id = 2;
+    string new_email = 3;
+}
+
+// *******************
+// Responses
+// *******************
+message RegisterSubjectResponse {
+    string subject_id = 1;
+}
+
+message GetSubjectsResponse {
+    repeated SubjectResult subjects = 1;
+}
+
+message SearchSubjectResponse {
+    repeated SubjectResult result = 1;
+    string next_cursor = 2;
+    bool has_more = 3;
+}
+
+message GetSubjectContextResponse {
+    Context context = 1;
+}
+
+service IAM {
+    rpc RegisterSubject (RegisterSubjectRequest) returns (RegisterSubjectResponse){
+    };
+    rpc AuthenticateSubject (AuthenticateSubjectRequest) returns (google.protobuf.Empty){
+    };
+
+    rpc GetSubjects(GetSubjectsRequest) returns (GetSubjectsResponse){
+    };
+    rpc GetSubjectsByEmail(GetSubjectsByEmailRequest) returns (GetSubjectsResponse){
+    };
+    rpc MutateAttributes (MutateAttributesRequest) returns (google.protobuf.Empty){
+    };
+    rpc ResetSubjectPassword (ResetSubjectPasswordRequest) returns (google.protobuf.Empty){
+    };
+    rpc ChangeSubjectEmail (ChangeSubjectEmailRequest) returns (google.protobuf.Empty){
+    };
+
+    rpc DeleteSubject (DeleteSubjectRequest) returns (google.protobuf.Empty){
+    };
+
+    rpc SearchSubject (SearchSubjectRequest) returns (SearchSubjectResponse){
+    };
+
+    rpc GetSubjectContext (GetSubjectContextRequest) returns (GetSubjectContextResponse){
+    };
+}

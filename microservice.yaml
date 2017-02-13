@@ -1,0 +1,49 @@
+microservice:
+  goPackageName: github.com/vendasta/event-store
+  name: event-store
+  environments:
+
+  - name: test
+    appConfig:
+      endpointsVersion: ""
+    k8sContext: gke_repcore-prod_us-central1-c_vendasta-central
+    k8sNamespace: sandbox
+    network:
+      grpcHost: my-service-api-test.vendasta-internal.com
+      grpcPort: 11000
+      httpsHost: my-service-test.vendasta-internal.com
+      httpsPort: 11001
+      loadBalancerIp: ""
+    podConfig:
+      podEnv:
+      - key: ENV_VARIABLE
+        value: example
+      secrets: null
+    resources:
+      cpuLimit: 250m
+      cpuRequest: 100m
+      memoryLimit: 128Mi
+      memoryRequest: 64Mi
+    scaling:
+      maxReplicas: 3
+      minReplicas: 1
+      targetCPU: 50
+
+  - name: local
+    appConfig:
+      endpointsVersion: ""
+    k8sContext: minikube
+    k8sNamespace: default
+    network:
+      grpcHost: event-store.vendasta-local.com
+      grpcPort: 11000
+      httpsHost: event-store.vendasta-local.com
+      httpsPort: 11001
+      loadBalancerIp: ""
+    podConfig:
+      secrets: null
+    resources:
+      cpuLimit: 250m
+      cpuRequest: 100m
+      memoryLimit: 128Mi
+      memoryRequest: 64Mi

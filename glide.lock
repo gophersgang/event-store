@@ -1,0 +1,123 @@
+hash: c215215cac89f8c07e6f7ab556dc754720045a4e60f2b73afd961933f2bb9c44
+updated: 2017-02-10T21:46:02.990405431-06:00
+imports:
+- name: cloud.google.com/go
+  version: 513b07bb7468fa6d8c59519f35b66456bce959b5
+  subpackages:
+  - compute/metadata
+  - internal
+  - logging
+  - logging/apiv2
+  - logging/internal
+  - trace
+- name: github.com/DataDog/datadog-go
+  version: 6fa3e39b86f8cbb638a971f2a90b9ebd98074c6b
+  subpackages:
+  - statsd
+- name: github.com/golang/protobuf
+  version: 8ee79997227bf9b34611aee7946ae64735e6fd93
+  subpackages:
+  - proto
+  - protoc-gen-go/descriptor
+  - ptypes
+  - ptypes/any
+  - ptypes/duration
+  - ptypes/empty
+  - ptypes/struct
+  - ptypes/timestamp
+- name: github.com/googleapis/gax-go
+  version: da06d194a00e19ce00d9011a13931c3f6f6887c7
+- name: github.com/mattheath/base62
+  version: b80cdc656a7a61702f293555d54777d6ff617eb7
+- name: github.com/mattheath/kala
+  version: 70c7568dcd62c5c0d7c0c592222c5d080449fd79
+  subpackages:
+  - bigflake
+  - util
+- name: github.com/vendasta/gosdks
+  version: a9b8a64c80b14977d18daa488811b179b333297e
+  subpackages:
+  - config
+  - config/elastic
+  - logging
+  - statsd
+  - util
+- name: golang.org/x/net
+  version: 61557ac0112b576429a0df080e1c2cef5dfbb642
+  subpackages:
+  - context
+  - context/ctxhttp
+  - http2
+  - http2/hpack
+  - idna
+  - internal/timeseries
+  - lex/httplex
+  - trace
+- name: golang.org/x/oauth2
+  version: de0725b330ab43c1a3d6c84d961cf01183783f1e
+  subpackages:
+  - google
+  - internal
+  - jws
+  - jwt
+- name: golang.org/x/time
+  version: f51c12702a4d776e4c1fa9b0fabab841babae631
+  subpackages:
+  - rate
+- name: google.golang.org/api
+  version: 2da5589ad30130b51fa58b5acbceaeb647ebe06e
+  subpackages:
+  - cloudtrace/v1
+  - gensupport
+  - googleapi
+  - googleapi/internal/uritemplates
+  - googleapi/transport
+  - internal
+  - iterator
+  - oauth2/v2
+  - option
+  - support/bundler
+  - transport
+- name: google.golang.org/appengine
+  version: 2e4a801b39fc199db615bfca7d0b9f8cd9580599
+  subpackages:
+  - internal
+  - internal/app_identity
+  - internal/base
+  - internal/datastore
+  - internal/log
+  - internal/modules
+  - internal/remote_api
+  - internal/socket
+  - internal/urlfetch
+  - socket
+  - urlfetch
+- name: google.golang.org/genproto
+  version: b3e7c2fb04031add52c4817f53f43757ccbf9c18
+  subpackages:
+  - googleapis/api/annotations
+  - googleapis/api/label
+  - googleapis/api/monitoredres
+  - googleapis/logging/type
+  - googleapis/logging/v2
+  - googleapis/rpc/status
+- name: google.golang.org/grpc
+  version: 708a7f9f3283aa2d4f6132d287d78683babe55c8
+  subpackages:
+  - codes
+  - credentials
+  - credentials/oauth
+  - grpclog
+  - internal
+  - metadata
+  - naming
+  - peer
+  - stats
+  - tap
+  - transport
+- name: gopkg.in/olivere/elastic.v3
+  version: 9da4058517104766446811c87c0890f26c03d945
+  subpackages:
+  - backoff
+  - uritemplates
+testImports: []

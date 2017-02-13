@@ -1,0 +1,40 @@
+package: github.com/vendasta/gosdks
+import:
+- package: cloud.google.com/go
+  subpackages:
+  - logging/apiv2
+- package: github.com/golang/protobuf
+  subpackages:
+  - proto
+  - ptypes
+  - ptypes/any
+  - ptypes/empty
+  - ptypes/timestamp
+- package: github.com/mattheath/kala
+  subpackages:
+  - bigflake
+- package: github.com/stretchr/testify
+  subpackages:
+  - mock
+- package: golang.org/x/oauth2
+  subpackages:
+  - google
+- package: google.golang.org/cloud
+  subpackages:
+  - compute/metadata
+- package: google.golang.org/genproto
+  subpackages:
+  - googleapis/api/monitoredres
+  - googleapis/logging/type
+  - googleapis/logging/v2
+- package: google.golang.org/grpc
+  subpackages:
+  - codes
+  - credentials
+  - credentials/oauth
+  - grpclog
+  - metadata
+  - naming
+- package: golang.org/x/net
+  subpackages:
+  - context

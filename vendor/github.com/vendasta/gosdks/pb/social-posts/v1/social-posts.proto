@@ -1,0 +1,47 @@
+syntax = "proto3";
+
+
+package socialposts.v1;
+
+import "google/protobuf/timestamp.proto";
+
+message SocialPost{
+    string account_id = 1;
+    string social_post_id = 2;
+    string post_text = 3;
+    google.protobuf.Timestamp posted = 4;
+    bool is_error = 5;
+    enum DeletionStatus {
+        NONE = 0;
+	    FAILED = 1;
+	    IN_PROGRESS = 2;
+    }
+    
+    DeletionStatus deletion_status = 6;   
+    enum Service {
+	    TWITTER = 0;
+	    FACEBOOK = 1;
+	    LINKED_IN = 2;
+	    GOOGLE_PLUS = 3;
+    }
+    Service service = 7;
+}
+
+message ListSocialPostResponse {
+    repeated SocialPost social_posts = 1;
+    string next_cursor = 2;
+    bool has_more = 3;
+}
+
+message ListSocialPostRequest {
+    google.protobuf.Timestamp start = 1;
+    google.protobuf.Timestamp end = 2;
+    string account_id = 3;
+    string partner_id = 4;
+    string next_cursor = 5;
+}
+
+service SocialPosts {
+    rpc List(ListSocialPostRequest) returns (ListSocialPostResponse){
+    }
+}

@@ -1,0 +1,45 @@
+syntax = "proto3";
+
+package partner.v1;
+
+import "google/protobuf/timestamp.proto";
+
+message Partner {
+    enum PartnerType {
+        Platform = 0;
+        Product = 1;
+    }
+    
+    enum ServiceLevel {
+        Premium = 0;
+        Standard = 1;
+    }
+
+    enum SubscriptionLevel {
+        Lite = 0;
+        Basic = 1;
+    }
+
+    string partner_id = 1;
+    string name = 2;
+    string account_executive = 3;
+    PartnerType partner_type = 4;
+    ServiceLevel service_level = 5;
+    SubscriptionLevel subscription_level = 6;
+    bool paused = 7;
+    bool cancelled = 8;
+    google.protobuf.Timestamp created = 9;
+    google.protobuf.Timestamp modified = 10;
+}
+
+message GetPartnerRequest {
+    string partner_id = 1;
+}
+
+message GetPartnerResponse {
+    Partner partner = 1;
+}
+
+service Partners {
+    rpc GetPartner(GetPartnerRequest) returns (GetPartnerResponse);
+}

@@ -1,0 +1,143 @@
+syntax = "proto3";
+
+package salesopportunities.v1;
+
+import "google/protobuf/timestamp.proto";
+
+enum RevenuePeriod {
+    ONETIME = 0;
+    DAILY = 1;
+    WEEKLY = 2;
+    BIWEEKLY = 3;
+    MONTHLY = 4;
+    YEARLY = 5;
+}
+
+enum Currency {
+    USD = 0;
+    CDN = 1;
+    EUR = 2;
+    AUD = 3;
+    GBP = 4;
+    NZD = 5;
+}
+
+message RevenueComponent {
+    double value = 1;
+    RevenuePeriod period = 2;
+}
+
+message Revenue {
+    Currency currency = 1;
+    repeated RevenueComponent revenue_components = 2;
+}
+
+message Opportunity {
+    string opportunity_id = 1;
+    string account_group_id = 2;
+    string sales_person_id = 3;
+
+    string name = 4;
+    Revenue revenue = 6;
+    repeated string package_ids = 7;
+    google.protobuf.Timestamp expected_close_date = 8;
+    double probability = 9;
+    string notes = 10;
+
+    google.protobuf.Timestamp deleted = 11;
+    google.protobuf.Timestamp created = 12;
+    google.protobuf.Timestamp updated = 13;
+
+    double projected_first_year_value = 14;
+}
+
+// *******************
+// Requests
+// *******************
+message CreateOpportunityRequest {
+    string account_group_id = 1;
+    string sales_person_id = 2;
+
+    string name = 3;
+    Revenue revenue = 5;
+    repeated string package_ids = 6;
+    google.protobuf.Timestamp expected_close_date = 7;
+    double probability = 8;
+    string notes = 9;
+}
+
+message GetOpportunityRequest {
+    string opportunity_id = 1;
+    string account_group_id = 2;
+}
+
+
+message ListOpportunitiesRequest {
+    string account_group_id = 1;
+    string cursor = 2;
+    int64 page_size = 3;
+}
+
+message GetOpportunityCountByAccountGroupsRequest {
+    repeated string account_group_ids = 1;
+}
+
+message UpdateOpportunityRequest {
+    string opportunity_id = 1;
+    string account_group_id = 2;
+    string sales_person_id = 3;
+
+    string name = 4;
+    Revenue revenue = 5;
+    repeated string package_ids = 6;
+    google.protobuf.Timestamp expected_close_date = 7;
+    double probability = 8;
+    string notes = 9;
+}
+
+// *******************
+// Responses
+// *******************
+message CreateOpportunityResponse {
+    Opportunity opportunity = 1;
+}
+
+message GetOpportunityResponse {
+    Opportunity opportunity = 1;
+}
+
+message ListOpportunitiesResponse {
+    repeated Opportunity results = 1;
+    string next_cursor = 2;
+    bool has_more = 3;
+}
+
+message OpportunityCount {
+    string account_group_id = 1;
+    int64 count = 2;
+}
+
+message GetOpportunityCountByAccountGroupsResponse {
+    repeated OpportunityCount results = 1;
+}
+
+message UpdateOpportunityResponse {
+    Opportunity opportunity = 1;
+}
+
+service SalesOpportunities {
+    rpc CreateOpportunity (CreateOpportunityRequest) returns (CreateOpportunityResponse){
+    }
+
+    rpc GetOpportunity (GetOpportunityRequest) returns (GetOpportunityResponse){
+    }
+
+    rpc ListOpportunities (ListOpportunitiesRequest) returns (ListOpportunitiesResponse){
+    }
+
+    rpc GetOpportunityCountByAccountGroups (GetOpportunityCountByAccountGroupsRequest) returns (GetOpportunityCountByAccountGroupsResponse) {
+    }
+
+    rpc UpdateOpportunity (UpdateOpportunityRequest) returns (UpdateOpportunityResponse) {
+    }
+}
