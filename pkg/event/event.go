@@ -6,13 +6,13 @@ import (
 
 	"github.com/golang/protobuf/ptypes"
 	"github.com/pborman/uuid"
+	"github.com/vendasta/event-store/pkg/config"
+	"github.com/vendasta/event-store/pkg/utils"
 	"github.com/vendasta/gosdks/logging"
+	"github.com/vendasta/gosdks/pb/event-store/v1"
 	"github.com/vendasta/gosdks/pb/vstorepb"
 	"github.com/vendasta/gosdks/vstore"
 	"golang.org/x/net/context"
-	"github.com/vendasta/gosdks/pb/event-store/v1"
-	"github.com/vendasta/event-store/pkg/config"
-	"github.com/vendasta/event-store/pkg/utils"
 )
 
 const (
@@ -29,11 +29,11 @@ const (
 
 // Event vStore model
 type Event struct {
-	EventID  string `vstore:"event_id"`
+	EventID       string        `vstore:"event_id"`
 	AggregateType AggregateType `vstore:"aggregate_type"`
-	AggregateID string `vstore:"aggregate_id"`
-	Payload string `vstore:"payload"`
-	Timestamp    time.Time `vstore:"timestamp"`
+	AggregateID   string        `vstore:"aggregate_id"`
+	Payload       string        `vstore:"payload"`
+	Timestamp     time.Time     `vstore:"timestamp"`
 }
 
 // Proto converts Currency to Protobuf Currency
@@ -67,11 +67,11 @@ func (e Event) Proto() (*eventstore_v1.Event, error) {
 	}
 
 	return &eventstore_v1.Event{
-		EventId:        e.EventID,
-		AggregateType:  aggregateType,
-		AggregateId:    e.AggregateID,
-		Payload:        e.Payload,
-		Timestamp:      timestamp,
+		EventId:       e.EventID,
+		AggregateType: aggregateType,
+		AggregateId:   e.AggregateID,
+		Payload:       e.Payload,
+		Timestamp:     timestamp,
 	}, nil
 }
 

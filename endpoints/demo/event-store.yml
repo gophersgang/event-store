@@ -1,0 +1,18 @@
+type: google.api.Service
+config_version: 3
+
+name: event-store-demo.vendasta-internal.com
+
+title: Event Store gRPC Demo
+apis:
+- name: eventstore.v1.EventStore
+
+authentication:
+  rules:
+    - selector: '*'
+      requirements:
+        - provider_id: google_id_token
+          audiences: "https://event-store-demo.vendasta-internal.com"
+  providers:
+    - id: google_id_token
+      issuer: accounts.google.com

@@ -33,8 +33,7 @@ def compile_api():
     temp_dir = tempfile.mkdtemp(suffix="api-compiler")
     run("cd {} && git clone https://github.com/googleapis/api-compiler.git".format(temp_dir))
 
-    #for env in ['test', 'demo', 'prod', 'local']:
-    for env in ['local']:
+    for env in ['test', 'demo', 'prod', 'local']:
         run("cd {temp_dir}/api-compiler && ./run.sh --configs {cur_dir}/endpoints/{env}/event-store.yml --configs {cur_dir}/endpoints/event-store-http.yml --configs {cur_dir}/endpoints/endpoints.yaml --descriptor {cur_dir}/vendor/github.com/vendasta/gosdks/pb/event-store/v1/api.descriptor --json_out {cur_dir}/endpoints/{env}/event-store-service.json".format(
                 temp_dir=temp_dir, cur_dir=os.getcwd(), env=env))
 

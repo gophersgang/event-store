@@ -7,14 +7,16 @@ import (
 	"golang.org/x/net/context"
 
 	"github.com/vendasta/event-store/pkg/api"
+	"github.com/vendasta/event-store/pkg/event"
+	"github.com/vendasta/event-store/pkg/event/pubsub"
+	"github.com/vendasta/event-store/pkg/event/pubsub/handlers"
+	"github.com/vendasta/event-store/pkg/event/repository"
 	"github.com/vendasta/gosdks/config"
 	"github.com/vendasta/gosdks/config/elastic"
 	"github.com/vendasta/gosdks/logging"
 	"github.com/vendasta/gosdks/statsd"
 	"github.com/vendasta/gosdks/util"
 	"github.com/vendasta/gosdks/vstore"
-	"github.com/vendasta/event-store/pkg/event"
-	"github.com/vendasta/event-store/pkg/event/repository"
 )
 
 const (
@@ -91,10 +93,23 @@ func main() {
 		}
 	}()
 
+	//Start Pubsub workers
+	subscriptions := []*eventpubsub.PubsubSubscription{
+		eventpubsub.NewPubsubSubscription(
+			"email-event",  // fake
+			eventpubsubhandlers.HandleEmailEvent,
+		),
+		eventpubsub.NewPubsubSubscription(
+			"campaign-created",  // fake
+			eventpubsubhandlers.HandleCampaignCreated,
+		),
+	}
+	pubsubManager := eventpubsub.NewPubsubManager(ctx, subscriptions, "repcore-prod") // always repcore-prod?
+	pubsubManager.Start()
+
 	//Start Healthz and Debug HTTP API Server
 	healthz := func(w http.ResponseWriter, _ *http.Request) {
 		w.Header().Set("Content-Type", "application/json")
-		//TODO: (optional) INSERT YOUR CODE HERE
 		return
 	}
 
@@ -104,4 +119,5 @@ func main() {
 		logging.Errorf(ctx, "Error starting Healthz & Debug server: %s", err.Error())
 		os.Exit(-1)
 	}
+
 }

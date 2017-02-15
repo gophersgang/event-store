@@ -1,25 +1,25 @@
 package api
 
 import (
-	"github.com/vendasta/gosdks/logging"
-	grpc_context "golang.org/x/net/context"
-	"github.com/vendasta/gosdks/pb/event-store/v1"
-	"google.golang.org/grpc"
-	"github.com/vendasta/event-store/pkg/event"
-	"google.golang.org/grpc/codes"
-	"github.com/vendasta/event-store/pkg/utils"
 	"github.com/golang/protobuf/ptypes"
+	"github.com/vendasta/event-store/pkg/event"
+	"github.com/vendasta/event-store/pkg/utils"
+	"github.com/vendasta/gosdks/logging"
+	"github.com/vendasta/gosdks/pb/event-store/v1"
+	grpc_context "golang.org/x/net/context"
+	"google.golang.org/grpc"
+	"google.golang.org/grpc/codes"
 	"time"
 )
 
-type EventStoreServer struct{
+type EventStoreServer struct {
 	repository event.Repository
 }
 
 func (s *EventStoreServer) ListEvents(ctx grpc_context.Context, req *eventstore_v1.ListEventsRequest) (*eventstore_v1.ListEventsResponse, error) {
 	logging.Debugf(ctx, "You should change this")
 	res := &eventstore_v1.ListEventsResponse{
-		Events: []*eventstore_v1.Event{&eventstore_v1.Event{EventId:"foo"}},
+		Events: []*eventstore_v1.Event{&eventstore_v1.Event{EventId: "foo"}},
 	}
 	return res, nil
 }

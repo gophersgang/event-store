@@ -3,10 +3,10 @@ package eventrepository
 import (
 	"time"
 
-	"github.com/vendasta/gosdks/vstore"
-	"golang.org/x/net/context"
 	"github.com/vendasta/event-store/pkg/event"
 	"github.com/vendasta/event-store/pkg/utils"
+	"github.com/vendasta/gosdks/vstore"
+	"golang.org/x/net/context"
 )
 
 // VStoreRepository partially implements OpportunityRepository
@@ -22,11 +22,11 @@ func (v *VStoreRepository) CreateEvent(ctx context.Context, aggregateType event.
 	err := v.client.Transaction(ctx, event.KeySet(eventID), func(t vstore.Transaction, m vstore.Model) error {
 		if m == nil {
 			e = &event.Event{
-				EventID:        eventID,
-				AggregateType:  aggregateType,
-				AggregateID:    aggregateID,
-				Payload:        payload,
-				Timestamp:      timestamp,
+				EventID:       eventID,
+				AggregateType: aggregateType,
+				AggregateID:   aggregateID,
+				Payload:       payload,
+				Timestamp:     timestamp,
 			}
 		} else {
 			return utils.Error(utils.AlreadyExists, "An existing event with the given identifier %s already exists.", eventID)
